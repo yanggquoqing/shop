@@ -18,5 +18,5 @@
 
 #### 07-项目-登录-新建分支-login组件-配置路由
 >新建分支 专门写登录功能
->git branch
->git checkout -b 分支名
+>git branch     (查看有那些分支)
+>git checkout -b 分支名  (新建分支)
