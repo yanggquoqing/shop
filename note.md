@@ -59,5 +59,12 @@ const {
         } =res.data;
 ```
 
-#### 11-项目-登录-引入提示框组件
+#### 12-项目-登录-引入提示框组件
 > this.$message.warning(msg)
+
+#### 13-项目-登录-登录成功-进入 home 组件
+>登录成功 -> 来到home组件
+1. js编程式导航this.$router.push({name:'home'})
+2. App.vue router-view
+3. 新建home组件
+4.路由index.js 配置路由
