@@ -129,3 +129,28 @@ beforeCreate() {
     // if token 有 -> 继续渲染组件
   }
 ```
+
+#### 21-项目-首页 -头部-退出
+
+```js
+handleSignout() {
+      //1.清除token
+      localStorage.clear();
+      // 2.提示
+      this.$message.success("退出成功");
+      // 3.来到登录组件
+      this.$router.push({ name: "login" });
+    }
+```
+
+#### 22-项目-首页 -合并分支-新建用户分支
+1. 切到master
+2. git merge dev-login 合并分支
+3. push 
+4. 新建 dev-users   git checkout -b 分支名
+
+#### 23-项目-用户管理-用户列表-新建组件-路由配置
+1. home.vue 开启了路由模式 index 值-> path值
+2. home.vue main -> router-view
+3. 新建users.vue
+4. router/index
