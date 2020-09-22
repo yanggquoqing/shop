@@ -153,4 +153,4 @@ handleSignout() {
 1. home.vue 开启了路由模式 index 值-> path值
 2. home.vue main -> router-view
 3. 新建users.vue
-4. router/index
+4. router/index.js 在home中children配置users的路由
