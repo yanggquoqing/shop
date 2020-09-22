@@ -68,3 +68,25 @@ const {
 2. App.vue router-view
 3. 新建home组件
 4.路由index.js 配置路由
+
+#### 13-项目-登录-简化登录请求代码-async 和 await
+>让异步代码ajax看起来像同步代码
+1.找到异步操作有结果的代码 前面加await 同时接口异步操作的结果res
+2. 找到距离异步操作有结果的代码最近的方法
+```js
+async handleLogin() {
+      //希望将异步操作看起来像同步操作
+
+     const res = await this.$http.post("login", this.formdata)
+     const {
+          data,
+          meta: { msg, status }
+        } = res.data;
+        if (status === 200) {
+           this.$router.push({name:'home'})
+          this.$message.success(msg);
+        } else {
+          this.$message.warning(msg);
+        }
+}
+```
