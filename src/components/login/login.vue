@@ -30,17 +30,20 @@ export default {
     async handleLogin() {
       //希望将异步操作看起来像同步操作
 
-     const res = await this.$http.post("login", this.formdata)
-     const {
-          data,
-          meta: { msg, status }
-        } = res.data;
-        if (status === 200) {
-           this.$router.push({name:'home'})
-          this.$message.success(msg);
-        } else {
-          this.$message.warning(msg);
-        }
+      const res = await this.$http.post("login", this.formdata);
+      console.log(res);
+      const {
+        data,
+        meta: { msg, status }
+      } = res.data;
+      if (status === 200) {
+        //保存token
+        localStorage.setItem('token',data.token);
+        this.$router.push({ name: "home" });
+        this.$message.success(msg);
+      } else {
+        this.$message.warning(msg);
+      }
 
       // this.$http.post("login", this.formdata).then(res => {
       //   console.log(res);

@@ -69,7 +69,7 @@ const {
 3. 新建home组件
 4.路由index.js 配置路由
 
-#### 13-项目-登录-简化登录请求代码-async 和 await
+#### 14-项目-登录-简化登录请求代码-async 和 await
 >让异步代码ajax看起来像同步代码
 1.找到异步操作有结果的代码 前面加await 同时接口异步操作的结果res
 2. 找到距离异步操作有结果的代码最近的方法
@@ -89,4 +89,12 @@ async handleLogin() {
           this.$message.warning(msg);
         }
 }
+```
+
+
+#### 15-项目-登录-保存token
+> 目的:如果用户没有登录 -> url直接来到home组件
+> 在登录成功时 保存正确用户的token
+```js
+  localStorage.setItem('token',data.token)
 ```
