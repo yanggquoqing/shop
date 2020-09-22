@@ -154,3 +154,11 @@ handleSignout() {
 2. home.vue main -> router-view
 3. 新建users.vue
 4. router/index.js 在home中children配置users的路由
+
+### dya-08-重点
+
+#### 01-项目-用户管理-用户列表-面包屑和搜索框
+1. el-card 卡片 小容器
+2. 面包屑
+3. el-row>el-col>el-input+el-button
+4. 调整样式
