@@ -162,3 +162,81 @@ handleSignout() {
 2. 面包屑
 3. el-row>el-col>el-input+el-button
 4. 调整样式
+
+#### 02-项目-用户管理-用户列表-引入表格组件
+> el-table(data数据源[])> el-table-column(label表头/prop=“数据”) > 字符串数据
+
+#### 03-项目-用户管理-用户列表-表头处理
+> 按照效果 调整了表头的数量和lable
+> type="index" -> 该列的每个单元格的内容从1开始的序号
+
+#### 04-项目-用户管理-用户列表-请求数据-设置请求头
+1. created(){this.getUserList()}
+2. methods:{getUserList(){发送请求}}
+3. 接口文档中 除了登录之外的所有请求都需要进行授权 -> 设置请求头
+4. 找axios中关于请求头设置的代码
+```js
+const AUTH_TOKEN = localStorage.getItem("token");
+this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+```
+5. 发送请求
+
+#### 05-项目-用户管理-用户列表-渲染数据-一般数据
+1.解构赋值 给this.useList = res.data.data.users
+2.prop=""
+
+#### 06-项目-用户管理-用户列表-渲染数据-日期处理格式
+1. main.js 全局过滤器fmtdate
+2.
+2.1 prop="crate_time | fmtdate"不行
+2.2 单元格的内容只能显示文本
+```html
+  <el-table-column>
+    prop="create_time"
+    lable="创建时间"
+    {{crate_time | fmtdate}}
+  </el-table-column>
+```
+2.3 需要给该内容外层加容器template
+> 不同组件的数据不是共享，独立作用域
+```html
+  <el-table-column>
+    prop="create_time"
+    lable="创建时间"
+    <template>
+    {{crate_time | fmtdate}}
+    </template>
+  </el-table-column>
+```
+2.4 最终写法
+> slot-scope 作用： 传值
+> slot-scope 的值会自动去上一级找最外层标签el-table所绑定的数据userlist
+> slot-scope="scope" 此时“scope”==userlist数组
+> scope.row 是数组的每个对象
+> scope.row.create_time我们要用的数据
+```html
+  <el-table-column>
+    lable="创建时间"
+    <template slot-scope="scope">
+    {{scope.row.crate_time | fmtdate}}
+    </template>
+  </el-table-column>
+```
+
+#### 07-项目-用户管理-用户列表-渲染数据-用户状态开关
+> el-switch v-model="bool"
+```html
+    <el-table-column label="用户状态">
+        <template slot-scope="scope">
+          <el-switch v-model="scope.row.is_active" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+        </template>
+    </el-table-column>
+```
+
+#### 08-项目-用户管理-用户列表-渲染数据-操作
+> 操作里面不是字符串
+1.template容器 slot-scope="scope"
+2. el-button
+> size="mini" plain
+
+#### 09-项目-用户管理-用户列表-渲染数据-日期处理格式
