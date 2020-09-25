@@ -239,4 +239,114 @@ this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
 2. el-button
 > size="mini" plain
 
-#### 09-项目-用户管理-用户列表-渲染数据-日期处理格式
+#### 09-项目-用户管理-用户列表-分页组件-文档-引入
+1. @size-change 每页显示条数变化时 触发
+2. @current-change 当前页变化时 触发
+3. current-page 设置当前页是第几页
+4. page-sizes=[2,3,4,5] 每页多少条数据数组
+5. page-size 设置显示多少条
+6. total 总数
+
+#### 10-项目-用户管理-用户列表-分页组件-配置数据
+1. current-page="pagenum"
+2. page-size=2
+3. :total="total"
+
+#### 11-项目-用户管理-用户列表-分页组件-分页请求
+1. 每页显示条数改变时 -> this.pagesize = val -> this.getUserList()
+2. 页面改变时 -> this.pagenumj = val -> this.getUserList()
+> 希望当页条数改变时 从第一页开始显示 this.pagenum = 1 > currentpage=1
+
+
+#### 12-项目-用户管理-用户列表-搜索用户
+1. 点击搜索输入框绑定query v-model="query"
+2.点击搜索按钮 发送请求
+
+```html
+<el-input @clear="loadUserList" clearable placeholder="请输入内容" v-model="query" class="inputSearch">
+    <el-button @click="searchUser" slot="append" icon="el-icon-search"></el-button>
+</el-input>
+```
+
+#### 13-项目-用户管理-用户列表-添加用户-显示对话框
+1. 引入对话框  el-form
+2. 点击添加用户的按钮  显示对话框 this.dialogFormVisibleAdd = true
+3. 配置对对话框
+3.1 :model=form:
+3.2 dialogFormVisibleAdd: false
+3.3 el-form e-input v-model="form.xxx"
+
+#### 14-项目-用户管理-用户列表-添加用户-发送请求
+1. post this.form
+2. 关闭对话框
+3. 清空文本框
+4. 更新试图
+5. 提示框
+> post status === 201
+
+#### 15-项目-用户管理-用户列表-添加用户-处理响应
+
+#### 16-项目-用户管理-用户列表-删除用户-打开对话框
+> this.$confirm().then().catch()
+1. 点击确定 -》 .then 的参数
+2. 点击取消 -》 .catch的参数
+
+#### 17-项目-用户管理-用户列表-删除用户-处理响应
+1. 点击确定 -》 发送delete 请求
+1.1 提示
+1.2 更新数据
+1.3 回到第一页
+
+#### 18-项目-用户管理-用户列表-编辑用户-显示对话框
+> 点击操作中的编辑按钮，打开编辑对话框
+1. 找到编辑按钮@click
+2. 打开对话框
+3. 把之前添加对话框进行复制 - 修改
+> form用的是之前添加用户的form
+
+
+#### 19-项目-用户管理-用户列表-编辑用户-显示编辑数据
+1. 点击edit编辑按钮 scope.row
+2. showEditUserDia方法中 this.form = user user其实是scope.row
+> 用户名 禁用
+
+#### 19-项目-用户管理-用户列表-编辑用户-发送请求
+
+1. 找到对话框的确定按钮  -》 editUser() -> 发送请求
+> this.form = user
+> id -> this.form.id
+> 先点击编辑，再点击添加 -> 添加对话框中，清空form数据
+
+#### 20-项目-用户管理-用户列表-修改用户状态
+1. 找到开关 @change="changeMgState(scope.row)"
+2. changeMgState()发送请求
+> users/:uid/state/:type uid用户id 
+
+#### 21-项目-用户管理-用户列表-分配角色-功能演示
+1. 点击按钮  -》打开对话框
+2. 对话框 中有 下拉框
+3. 修改当前用户的角色
+4. 5个角色名来源于请求
+>  每个角色的权限是不同的
+
+#### 22-项目-用户管理-用户列表-分配角色-显示对话框
+1. 点击操作中的按钮 -> 打开对话框
+2. 引入对话框（有下拉框）
+> 下拉框的特性： 如果select绑定的数据的值和option的value值一样，此时显示的是改option的lable值
+3. 吧option分成了两类 请选择(-1) 和 v-for 遍历 option
+4. data 提供了el-select 的v-model所绑定的数据 currRoleId = -1
+#### 23-项目-用户管理-用户列表-分配角色-显示对话框-下拉框
+> el-select 和el-option
+1.当改变lable时 -> 该lable显示 -> 改变了value -> el-select v-model绑定的数据 ，自动关联
+
+#### 24-项目-用户管理-用户列表-分配角色--显示当前用户角色
+1. 通过请求获取所有角色 roles
+2. v-for el-option :lable="item.roleName" :value="item.id"
+3. 通过请求获取当前用户的rid
+4. 给el-select 中 v-model绑定的数据赋值 this.curRoleId = res.data.data.rid
+> rid接口文档中的参数名是role_id
+
+#### 25-项目-用户管理-用户列表-分配角色--修改用户角色
+1. 通过试图操作-》 修改了lable -> value值变化 -> el-select v-model绑定的数据变化
+2. curRoleId
+> 在setRole方法中使用用户Id
